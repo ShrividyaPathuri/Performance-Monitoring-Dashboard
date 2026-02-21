@@ -1,0 +1,20 @@
+services:
+  api:
+    build: ./backend
+    ports:
+      - "5050:5050"
+    environment:
+      PORT: 5050
+      DATA_DIR: /data
+    volumes:
+      - api-data:/data
+  web:
+    build: ./frontend
+    ports:
+      - "5173:5173"
+    environment:
+      VITE_API_BASE: http://localhost:5050
+    depends_on:
+      - api
+volumes:
+  api-data:
