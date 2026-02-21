@@ -1,22 +1,72 @@
 # Performance Monitoring Dashboard
-React + Backend API | Observability Simulation
 
-A full-stack observability dashboard that ingests logs and metrics via REST APIs, evaluates alert rules, and visualizes system behavior in real time.
+Full-Stack Observability Simulation  
+React + Node.js Backend | REST APIs | CI/CD
+
+---
+
+## Overview
+
+The Performance Monitoring Dashboard is a full-stack observability simulation that ingests logs and system metrics through REST APIs, evaluates alert rules, and visualizes system behavior in real time.
+
+This project demonstrates backend API design, alert rule evaluation, frontend visualization, and CI/CD automation.
+
+---
 
 ## Architecture
 
-**Frontend**
+### Frontend
 - React (Vite)
 - Chart.js for metric visualization
-
-**Backend**
-- REST API service
-- Stores ingested logs/metrics
-- Generates alerts (error spike, CPU threshold)
-
-## Run locally
+- Real-time dashboard updates
+- Displays recent logs and active alerts
 
 ### Backend
+- Node.js + Express
+- REST API endpoints
+- In-memory datastore (JSON-based)
+- Alert rule engine:
+  - Error spike detection
+  - CPU threshold monitoring
+
+---
+
+## Features
+
+- Log ingestion API
+- Metric ingestion API
+- Alert generation (CPU threshold, error spikes)
+- Dashboard visualization
+- Modular backend structure
+- GitHub Actions CI
+- Docker-ready configuration
+
+---
+
+## Project Structure
+
+
+performance-monitoring-dashboard/
+│
+├── backend/
+│ ├── src/
+│ ├── test/
+│ └── package.json
+│
+├── frontend/
+│ ├── src/
+│ └── package.json
+│
+├── docker-compose.yml
+└── .github/workflows/ci.yml
+
+
+---
+
+## Running Locally
+
+### Backend
+
 ```bash
 cd backend
 npm install
@@ -25,7 +75,6 @@ npm run dev
 Backend runs on:
 
 http://localhost:5050
-
 Frontend
 cd frontend
 npm install
@@ -34,50 +83,41 @@ npm run dev
 Frontend runs on:
 
 http://localhost:5173
+Sample API Usage
+Ingest Metric
 
-Sample API usage
+Windows (PowerShell):
+
+curl -X POST http://localhost:5050/api/ingest/metric ^
+  -H "Content-Type: application/json" ^
+  -d "{\"name\":\"cpu\",\"value\":92}"
+
+Mac/Linux:
+
 curl -X POST http://localhost:5050/api/ingest/metric \
   -H "Content-Type: application/json" \
   -d '{"name":"cpu","value":92}'
+Ingest Log
+
+Windows (PowerShell):
+
+curl -X POST http://localhost:5050/api/ingest/log ^
+  -H "Content-Type: application/json" ^
+  -d "{\"level\":\"ERROR\",\"service\":\"api\",\"message\":\"Timeout while calling downstream\"}"
+
+Mac/Linux:
+
 curl -X POST http://localhost:5050/api/ingest/log \
   -H "Content-Type: application/json" \
   -d '{"level":"ERROR","service":"api","message":"Timeout while calling downstream"}'
-Tech Stack
+Testing
 
-JavaScript / Node.js (backend)
+Backend:
 
-React (frontend)
+cd backend
+npm test
 
-REST APIs
+Frontend:
 
-GitHub Actions CI
-
-
-Commit.
-
----
-
-# ⚠️ Important (Resume Consistency)
-You told me your resume mentions **Java + Python**. If that’s true, then this Node backend repo will NOT match your resume.
-
-So you have 2 clean options:
-
-## Option A (fastest): Keep Node backend
-- Update resume project tech stack to include Node/Express  
-✅ CI fixed in 2 mins
-
-## Option B (recommended): Switch this repo to Spring Boot backend
-- Delete `backend/` Node folder
-- Replace with Spring Boot `backend/` (Java)
-- Use the Java CI workflow
-
-If you want Option B, tell me and I’ll give you the exact “replace backend folder” steps so you don’t break Git history.
-
----
-
-# Also: fixing “propviarealestate”
-You already set:
-
-```powershell
-git config --global user.name "Shrividya Pathuri"
-git config --global user.email "pathushrividya@gmail.com"
+cd frontend
+npm test
